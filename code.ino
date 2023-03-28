@@ -1,0 +1,31 @@
+/*
+  Created by: Curtis Edwards
+  Created on: Mar 2023
+
+  Uses a distance sensor to check the distance.
+*/
+
+const int TRIG_PIN = 3;
+const int ECHO_PIN = 2;
+
+float duration, distance;
+
+void setup() {
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  duration = pulseIn(ECHO_PIN, HIGH);
+  distance = (duration*.0343)/2;
+  Serial.print("Distance: ");
+  Serial.println(distance);
+  delay(100);
+}
